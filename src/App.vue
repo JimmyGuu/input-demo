@@ -1,18 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <AwesomeInput v-model="address" @update:value="onChange" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AwesomeInput from "@/components/AwesomeInput.vue";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    AwesomeInput,
+  },
+  data() {
+    return {
+      address: "",
+    }
+  },
+  methods: {
+    onChange(newValue) {
+      newValue = newValue || "";
+      this.$nextTick(() => {
+        this.address = newValue.replace(/[^a-zA-Z]/g, "").toUpperCase();
+      });
+    },
+  },
 }
 </script>
 
